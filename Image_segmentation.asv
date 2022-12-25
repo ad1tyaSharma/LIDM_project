@@ -1,0 +1,285 @@
+tic
+
+image=imread('try.jpg');     %Read the image
+
+
+
+
+
+image1=double(image);         %convert into double
+
+
+image11=image1(:);            %convert the image matrix into vector.
+
+
+copy=image1;                  %copy the image
+
+
+
+
+[R,C]=size(image1);           %to get the dimension of the Matrix
+%make the Centroid
+
+
+matrixM=[0 175 254];                %innitialization of the Matrix
+%Recalculation of the centroidass
+
+
+1=zeros(R,C);              %zeros matrix for the 1st clusterass
+
+
+2=zeros(R,C);              %zeros matrix for the 2nd clusterass
+
+
+3=zeros(R,C);              %zeros matrix for the 3rd cluster
+while(true)oldM=M;                 %check the centroid
+
+
+for i=1:R               %row
+
+
+
+
+
+for j=1:C               %coulomn
+
+
+r=image1(i,j);          %pixel value of the (i,j)co-ordinate
+
+
+ab=abs((image1(i,j))-M);%to find out that the pixel will belongs to which cluster
+
+mn=find(ab==min(ab));
+
+
+if mn(1)==1ass1(i,j)=r;            %assingning to the 1st clusterend
+
+
+if mn(1)==2ass2(i,j)=r;            %assingning to the 2nd clusterend
+
+
+if mn(1)==3ass3(i,j)=r;            %assingning to the 3rd clusterendendend
+
+
+co1=ass1(:);           %transfer into vector
+
+
+su1=sum(co1);          %sum of the vector
+
+
+
+
+
+fi1=find(co1);         %to find non zero elemen
+
+
+
+
+
+
+
+
+len1=length(fi1);      %to find the length of the non zeor element.
+
+
+mm1=su1/len1;
+
+
+mm11=round(mm1);       %new center element.%now to calculate the 2nd element of the centroid
+
+
+
+
+
+co2=ass2(:);
+
+
+
+
+
+su2=sum(co2);
+
+
+fi2=find(co2);
+
+
+
+
+
+len2=length(fi2);
+
+
+mm2=su2/len2;
+
+
+mm22=round(mm2);%now to calculate the 3rd elecment of the centroid.
+
+
+
+
+
+co3=ass3(:);
+
+
+
+
+
+su3=sum(co3);
+
+
+
+
+
+fi3=find(co3);
+
+
+
+
+
+len3=length(fi3);
+
+
+
+
+
+mm3=su3/len3;
+
+
+
+
+
+mm33=round(mm3);
+%new centroid
+
+
+
+
+
+M=[mm11 mm22 mm33];
+
+
+
+
+
+if(M==oldM)     breakendend
+%labelling of the clusters
+
+
+
+
+
+for i=1:R
+
+
+
+
+
+for j=1:C
+
+
+
+
+
+if ass1(i,j)>0ass1(i,j)=1;
+
+
+
+
+
+end
+
+
+
+
+
+if ass2(i,j)>0ass2(i,j)=2;
+
+
+
+
+
+endif
+
+
+
+
+
+ ass3(i,j)>0ass3(i,j)=3;
+
+
+endendend%representing the culustered image
+
+
+finlcluste=(ass1+ass2+ass3);          %sum up the three labelled cluster
+
+
+finlcluste1=label2rgb(finlcluste);    %final segmented image%
+
+
+
+
+
+ff=rgb2gray(finlcluste1);
+
+
+
+
+
+fff=im2bw(ff);
+
+
+
+
+
+figure(1);
+
+
+
+
+
+imshow(image)title('Original Image');
+
+
+
+
+
+figure(2);
+
+
+
+
+
+
+
+
+
+
+
+imshow(finlcluste1);
+
+
+
+
+
+title('Clustered Image');
+
+
+figure(3);
+
+
+imshow(fff);
+
+
+title('Clustered Image In Black and White');
+
+
+m1=rgb2gray(finlcluste1);
+
+
+%m1=im2bw(m1);
+
+
+x1=edge(m1,'canny');
+
+
+figure(3)imshow(x1);
